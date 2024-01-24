@@ -7,13 +7,15 @@ Welcome to my notes from reading the Rust Lang Book! I'm using this as a way to 
 To run the code examples for each chapter, follow these steps:
 
 1. Navigate to the chapter's folder:
+
    ```bash
    cd 2-guessing-game
    ```
 
 2. Enter the Cargo project folder:
+
    ```bash
-   cd guessing_game
+   cd game
    ```
 
 3. Run the project using Cargo:
