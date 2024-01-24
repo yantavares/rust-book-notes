@@ -18,3 +18,13 @@ e.g.:
     // do stuff with s
 }   // this scope is now over, and s is no longer valid
 ```
+
+**Also:**
+
+- Slices do not have ownership.
+- Primitive types have the `Copy` trait, so they are copied instead of moved.
+
+## --- References Rules ---
+
+1. At any given time, you can have either one mutable reference or any number of immutable references.
+2. References must always be valid.

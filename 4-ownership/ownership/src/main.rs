@@ -3,7 +3,11 @@ fn main() {
     clone_example();
     copy_example();
     ownership_example();
+    references_example();
+    slices_example();
 }
+
+// *** Ownership ***
 
 fn move_example(){
     let s1: String = String::from("Hello");
@@ -62,3 +66,86 @@ fn gives_ownership() -> String{
 fn takes_and_gives_back(a_string: String) -> String{
     a_string
 }
+
+// *** References ***
+
+fn references_example(){
+    let s1 = String::from("Hello");
+
+    let len = calculate_length(&s1); // Function gets reference to the value
+
+    // * Value doenst get owned, gets borrowed!
+
+    println!("The length of {} is {}.", s1, len);
+
+    let mut s2 = String::from("Hello");
+    change(&mut s2); // References are immutable by default
+
+    let r1 = &mut s2;
+
+    // ! let r2 = &mut s2;
+    // There can only be one mutable reference to a value at a time 
+
+    // ! let r2 = &s2;
+    // You cant have both mutable and immutable references at the same time
+
+    println!("This is r1: {}", r1);
+    
+}
+
+fn calculate_length(s: &String) -> usize {
+    s.len()
+}
+
+fn change(s: &mut String) {
+    // Changes value without taking ownership
+    s.push_str(" World!")
+}
+
+/*
+* fn invalid_reference_example(){
+    let reference_to_nothing = dangle();
+}
+
+* fn dangle() -> &String {
+    let s = String::from("Hello");
+    &s
+}
+
+! After function runs, s is droped, so reference points to nothing
+*/
+
+// *** String Slices ***
+fn slices_example(){
+    let mut s: String = String::from("hello world");
+
+    let _hello = &s[..5];
+    let _world = &s[6..];
+    let _hello_world = &s[..];
+
+    let word = first_word(&s); // Word is a string slice, tied to the string itself
+
+    println!("First word: {}", word);
+
+    s.clear(); // if s is droped, word value also changes
+
+    // ! println!("This will not work: {}", word)
+
+}
+
+fn first_word(s: &str) -> &str {
+    /* Notice that referece to String
+    is automatically converted to string slice reference
+
+    &String -> &str */
+    let bytes = s.as_bytes();
+
+    for (i, &item) in bytes.iter().enumerate(){
+        if item == b' ' {
+            return &s[..i];
+        }
+    }
+
+    return &s[..]
+}
+
