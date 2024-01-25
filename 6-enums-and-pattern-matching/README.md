@@ -1,4 +1,4 @@
-# Chapter 6: Enums and Pattern Matching in Rust
+# Chapter 6: Enums and Pattern Matching
 
 ## Enums in Rust
 
