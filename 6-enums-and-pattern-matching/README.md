@@ -1,27 +1,90 @@
-# Chapter 6 - Enums and Pattern Matching
+# Chapter 6: Enums and Pattern Matching in Rust
 
-- For some reason, enums use camel case instead of snake case for their variants: `enum IpAddrKind { V4, V6 }`
-- Enums are useful when you have a type that can be one of a few variants, and you want to be able to enumerate those variants
-- Variants of an enum are namespaced under its identifier, and we use a double colon to separate the two
-- Enums can receive data as well: `enum IpAddr { V4(String), V6(String) }`
-- You can also define methods on enums (crazy)
+## Enums in Rust
 
-- Option is a built-in enum that is used when a value could be something or nothing
-- It is defined as follows:
+### Basic Concepts
 
-```rust
-enum Option<T> {
-    Some(T),
-    None,
-}
-```
+- Enums in Rust are used when a type can be one of a few variants. This allows for clear enumeration of possible values.
+- Enum variants in Rust typically use CamelCase naming convention, differing from the snake_case commonly used elsewhere in Rust.
 
-- There are no null values in Rust, but you can use `Option<T>` to encode the fact that a value could be missing
-- You can also use `Option<T>` in a match statement:
+  Example:
 
-```rust
-let some_number = Some(5);
-let some_string = Some("a string");
+  ```rust
+  enum IpAddrKind { V4, V6 }
+  ```
 
-let absent_number: Option<i32> = None;
-```
+### Namespacing and Data in Enums
+
+- Enum variants are namespaced under the enum identifier, accessed using a double colon (`::`).
+- Enums can hold data, allowing for more versatile structures.
+
+  Example:
+
+  ```rust
+  enum IpAddr { V4(String), V6(String) }
+  ```
+
+### Methods on Enums
+
+- Enums in Rust can have methods defined on them, adding to their flexibility and utility.
+
+## The `Option` Enum
+
+### Purpose
+
+- The `Option` enum is a built-in feature in Rust used to express the possibility of absence of a value, acting as a safer alternative to null values found in many other languages.
+
+### Definition
+
+- The `Option` enum is generic and is defined as:
+
+  ```rust
+  enum Option<T> {
+      Some(T),
+      None,
+  }
+  ```
+
+### Usage Examples
+
+- `Option<T>` can be used to indicate the presence or absence of a value.
+
+  Examples:
+
+  ```rust
+  let some_number = Some(5);
+  let some_string = Some("a string");
+  let absent_number: Option<i32> = None;
+  ```
+
+## Pattern Matching in Rust
+
+### Exhaustiveness
+
+- Pattern matching in Rust is exhaustive, meaning all possible cases must be accounted for in a match statement.
+
+### Syntax and Usage
+
+- The `_` pattern is used to match any case not explicitly handled.
+- `if let` is a convenient syntax for matching a single pattern, providing a more concise alternative to `match` for simple cases.
+
+  Examples:
+
+  ```rust
+  let some_u8_value = 0u8;
+  match some_u8_value {
+      1 => println!("one"),
+      3 => println!("three"),
+      5 => println!("five"),
+      7 => println!("seven"),
+      _ => (), // Do nothing
+  }
+  ```
+
+  This is equivalent to:
+
+  ```rust
+  if let Some(3) = some_u8_value {
+      println!("three");
+  }
+  ```
