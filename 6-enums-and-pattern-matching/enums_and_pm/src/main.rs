@@ -44,8 +44,16 @@ fn option_enum() {
 }
 
 fn matching_enums() {
+    #[derive(Debug)]
+    enum UsState {
+        _Alaska,
+        _Arizona,
+        California,
+        //...
+    }
+
     enum Coin {
-        Penny,
+        Penny(UsState),
         _Nickel,
         _Dime,
         _Quarter,
@@ -53,8 +61,8 @@ fn matching_enums() {
 
     fn value_in_cents(coin: Coin) -> u8 {
         match coin {
-            Coin::Penny => {
-                println!("Lucky Penny!");
+            Coin::Penny(state) => {
+                println!("Quarter from {:?}", state); // We can use state stored in Penny
                 return 1;
             }
             Coin::_Nickel => 5,
@@ -64,6 +72,6 @@ fn matching_enums() {
     }
 
     let penny = Coin::Penny;
-    let penny_value = value_in_cents(penny);
+    let penny_value = value_in_cents(penny(UsState::California));
     println!("Value of a penny: {} cents", penny_value)
 }
