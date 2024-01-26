@@ -14,3 +14,7 @@
 - A package must have at least one crate.
 - To create a new library crate, run `cargo new --lib <crate_name>`.
 - To create a new binary crate, run `cargo new --bin <crate_name>`.
+- Modules are specified using the `mod` keyword.
+- Modules can be nested.
+- Modules can be public or private.
+- Modules can be accessed using the `use` keyword.
