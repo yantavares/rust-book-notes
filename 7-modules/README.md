@@ -21,3 +21,5 @@
 - inside a module, basically everything is default private.
 - To make something public, use the `pub` keyword.
 - Although enums and structs are public by default, they are private inside modules.
+- In rust, when importing functions, it is best practice to import the parent module.
+- e.g. `use std::io::stdin` is better than `use std::io::stdin::read_line`.

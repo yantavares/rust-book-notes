@@ -65,3 +65,15 @@ pub fn eat_at_restaurant() {
 
     println!("Order 1: {:?}. Order 2: {:?}", order1, order2);
 }
+
+// Absolute path
+// use crate::house::hosting;
+
+// Relative path
+use self::house::hosting;
+
+pub fn eat_at_restaurant2() {
+    hosting::add_to_waitlist();
+    hosting::add_to_waitlist();
+    hosting::add_to_waitlist();
+}
