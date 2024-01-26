@@ -18,3 +18,6 @@
 - Modules can be nested.
 - Modules can be public or private.
 - Modules can be accessed using the `use` keyword.
+- inside a module, basically everything is default private.
+- To make something public, use the `pub` keyword.
+- Although enums and structs are public by default, they are private inside modules.

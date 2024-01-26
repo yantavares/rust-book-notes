@@ -1,4 +1,4 @@
-mod front_of_house {
+mod house {
     // Private by default
     pub mod hosting {
         pub fn add_to_waitlist() {}
@@ -20,15 +20,48 @@ mod front_of_house {
         }
 
         fn _cook_order() {}
+
+        pub struct Breakfast {
+            pub toast: String,
+            pub seasonal_fruit: String,
+        }
+
+        impl Breakfast {
+            pub fn summer(toast: &str) -> Breakfast {
+                Breakfast {
+                    toast: String::from(toast),
+                    seasonal_fruit: String::from("peaches"),
+                }
+            }
+        }
+
+        #[derive(Debug)]
+        pub enum Appetizer {
+            Soup,
+            Salad,
+        }
     }
 }
 
 pub fn eat_at_restaurant() {
     // Absolute path
-    crate::front_of_house::hosting::add_to_waitlist();
+    crate::house::hosting::add_to_waitlist();
 
     // Relative path
-    front_of_house::hosting::add_to_waitlist();
+    house::hosting::add_to_waitlist();
 
-    front_of_house::back_of_house::fix_incorrect_order();
+    house::back_of_house::fix_incorrect_order();
+
+    // Order a breakfast in the summer with rye toast
+    let meal = house::back_of_house::Breakfast::summer("Rye");
+
+    let order1 = house::back_of_house::Appetizer::Soup;
+    let order2 = house::back_of_house::Appetizer::Salad;
+
+    println!(
+        "I'd like {} toast please and {} fruit.",
+        meal.toast, meal.seasonal_fruit
+    );
+
+    println!("Order 1: {:?}. Order 2: {:?}", order1, order2);
 }
