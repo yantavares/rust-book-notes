@@ -1,47 +1,12 @@
-mod house {
-    // Private by default
-    pub mod hosting {
-        pub fn add_to_waitlist() {}
-        fn _seat_at_table() {}
-    }
+use rand::{thread_rng, Rng}; // Nested paths
 
-    mod serving {
-        fn _take_order() {}
-        pub fn serve_order() {}
-        fn _take_payment() {}
-    }
+// Blob import
+// * use rand::*;
 
-    pub mod back_of_house {
-        pub fn fix_incorrect_order() {
-            _cook_order();
+mod house; // Importing a module from another file in the same directory
 
-            // Super refers to parent module
-            super::serving::serve_order();
-        }
-
-        fn _cook_order() {}
-
-        pub struct Breakfast {
-            pub toast: String,
-            pub seasonal_fruit: String,
-        }
-
-        impl Breakfast {
-            pub fn summer(toast: &str) -> Breakfast {
-                Breakfast {
-                    toast: String::from(toast),
-                    seasonal_fruit: String::from("peaches"),
-                }
-            }
-        }
-
-        #[derive(Debug)]
-        pub enum Appetizer {
-            Soup,
-            Salad,
-        }
-    }
-}
+// For other modules to access hosting directly, we need to make it public
+pub use crate::house::hosting;
 
 pub fn eat_at_restaurant() {
     // Absolute path
@@ -67,13 +32,15 @@ pub fn eat_at_restaurant() {
 }
 
 // Absolute path
-// use crate::house::hosting;
+// * use crate::house::hosting;
 
 // Relative path
-use self::house::hosting;
+// * use self::house::hosting;
 
 pub fn eat_at_restaurant2() {
-    hosting::add_to_waitlist();
-    hosting::add_to_waitlist();
+    let mut rng = thread_rng();
+    let _secret_number = rand::thread_rng().gen_range(1..100);
+    let _random_value: u8 = rng.gen();
+
     hosting::add_to_waitlist();
 }
