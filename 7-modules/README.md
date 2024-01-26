@@ -1,1 +1,16 @@
 # Chapter 7 - Managing Packages, Crates and Modules
+
+- When you add a file to a project, it becomes a module.
+- When you add a directory to a project, it becomes a crate.
+- The structure of a project can be represented as a tree.
+- The root of the tree is the crate.
+- The branches of the tree are the modules.
+- The leaves of the tree are the functions.
+- The trunk of the tree is the main function.
+- You can see all the modules in a crate by running `cargo tree`.
+- You can see all the functions in a module by running `cargo doc --open`.
+- All information about a crate is stored in a file called `Cargo.toml`.
+- Package is a collection of crates.
+- A package must have at least one crate.
+- To create a new library crate, run `cargo new --lib <crate_name>`.
+- To create a new binary crate, run `cargo new --bin <crate_name>`.
