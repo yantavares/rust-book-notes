@@ -9,7 +9,7 @@ To run the code examples for each chapter, follow these steps:
 1. Navigate to the chapter's folder:
 
    ```bash
-   cd 2-guessing-game
+   cd 02-guessing-game
    ```
 
 2. Enter the Cargo project folder:
