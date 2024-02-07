@@ -64,3 +64,5 @@ They provide a variety of functionality for processing sequences of data, includ
 - Producing new iterators with modified sequences, such as applying a transformation to each element.
 
 Creating custom iterators involves implementing the `Iterator` trait and its `next` method, enabling the use of all iterator methods like `map`, `filter`, `collect`, etc.
+
+Iterators are zero-cost abstractions, meaning that the performance of using iterators is equivalent to writing the equivalent code by hand. This is due to Rust's powerful inlining and optimization capabilities.
