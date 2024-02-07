@@ -25,13 +25,21 @@ pub struct Config {
 }
 
 impl Config {
-    pub fn new(args: &[String]) -> Result<Config, &str> {
-        if args.len() < 3 {
-            return Err("Not enough arguments");
-        }
+    pub fn new(mut args: env::Args) -> Result<Config, &'static str> {
+        // static lifetime, which means the string slice will live for the entire duration of the program
 
-        let query = args[1].clone(); // clone is necessary because we want to take ownership of the string
-        let filename = args[2].clone();
+        args.next(); // skip the first value, which is the name of the program
+                     // env::Args is an iterator, so we can call next to get the next value
+
+        let query = match args.next() {
+            Some(arg) => arg,
+            None => return Err("Didn't get a query string"),
+        };
+
+        let filename = match args.next() {
+            Some(arg) => arg,
+            None => return Err("Didn't get a file name"),
+        };
 
         // env::var returns a Result, so we can use is_err to check if the variable is not set
         // env refers to the environment of the program
@@ -45,7 +53,8 @@ impl Config {
     }
 }
 
-pub fn search<'a>(query: &str, contents: &'a str) -> Vec<&'a str> {
+fn _old_search<'a>(query: &str, contents: &'a str) -> Vec<&'a str> {
+    // Old version of search function
     // We want the lifetime of the return value to be the same as the contents argument
 
     let mut results = Vec::new();
@@ -57,6 +66,15 @@ pub fn search<'a>(query: &str, contents: &'a str) -> Vec<&'a str> {
     }
 
     results
+}
+
+pub fn search<'a>(query: &str, contents: &'a str) -> Vec<&'a str> {
+    // We want the lifetime of the return value to be the same as the contents argument
+
+    contents
+        .lines()
+        .filter(|line| line.contains(query))
+        .collect()
 }
 
 pub fn search_case_insensitive<'a>(query: &str, contents: &'a str) -> Vec<&'a str> {
