@@ -1,0 +1,14 @@
+[package]
+name = "my_crate"
+version = "0.1.0"
+edition = "2021"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+
+[profile.dev]
+opt-level = 0 # opt level is the optimization level, 0 is the lowest, 3 is the highest
+
+[profile.release]
+opt-level = 3
