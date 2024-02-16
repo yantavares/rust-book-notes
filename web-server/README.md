@@ -1,19 +1,37 @@
-## How to run the server:
+# Chapter 20: Creating a Multithreaded Web Server in Rust
+
+## Overview
+
+This chapter guides you through the process of creating a basic, multithreaded web server using Rust. The server is designed to listen on `127.0.0.1:7878` and automatically shuts down after processing 2 requests, serving as a demonstration of Rust's capabilities in network programming.
+
+## Running the Server
+
+To start the server, navigate to the server directory and execute the following commands in your terminal:
+
 ```bash
 cd server
 cargo run
 ```
 
-The server will be listening on `127.0.0.1:7878`.
+## Key Concepts
 
-The server is set to automatically shutdown after 2 requests for demonstration purposes.
+### TCP Connections
 
-# Chapter 20 - Creating a Multithreaded Web Server in Rust
+- **TCP (Transmission Control Protocol)**: A fundamental protocol in the internet protocol suite. TCP is connection-oriented, ensuring reliable, ordered, and error-checked delivery of bytes between applications communicating over an IP network.
+- **Application**: TCP is crucial for applications requiring dependable data exchange, like web servers, where it manages the connections between the server and its clients.
 
-- TCP is a connection-oriented protocol, which means that it establishes a connection between the client and the server before sending any data. It is reliable, in-order, and error-checked. It is used for applications that require high reliability and low latency, such as web servers, email servers, and file transfer.
+### Implementing a Multithreaded Server
 
-- To implement a multithreaded web server, we will use the `std::net` module to create a TCP listener. We will then use the `std::thread` module to create a new thread for each incoming connection. We will also use the `std::fs` module to read the contents of the requested file and send it back to the client.
+- **`std::net` Module**: Used to create a TCP listener that waits for incoming connection attempts. Once a connection is established, the server can communicate with the client.
+- **`std::thread` Module**: Enables the creation of new threads, allowing the server to handle each connection in a separate thread. This is key to achieving concurrency, as it allows the server to process multiple requests simultaneously.
+- **`std::fs` Module**: Facilitates reading files from the file system. This is used to serve requested files to the client.
 
-- Multi-threading is useful for web servers because it allows the server to handle multiple requests at the same time. This can improve the performance of the server and reduce the response time for clients.
+### Advantages of Multithreading
 
-We moved `main.rs` inside `bin` directory and created a new `lib.rs` file in the `src` directory in order to separate the server logic from the main function.
+- **Performance and Scalability**: By handling each client request in a separate thread, the server can process multiple requests at the same time, significantly improving its throughput and responsiveness.
+- **Isolation**: Threads operate in separate execution environments, reducing the risk that an issue in one request handler will directly impact another.
+
+### Project Structure
+
+- **`main.rs` in `bin` Directory**: Contains the entry point for the server application. This separation allows for better organization, especially in projects where the server might be only one component of a larger application.
+- **`lib.rs` in `src` Directory**: Houses the server's logic, abstracting the details of handling TCP connections and threading away from the main function. This modular approach facilitates testing and maintenance.
